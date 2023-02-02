@@ -116,7 +116,7 @@ module.exports = {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
               modules: true,
-              localIdentName: "[name]__[local]__[hash:base64:5]"
+              localIdentName: "[name]__[local]__[hash:base:64]"
             },
             loader: require.resolve('eslint-loader'),
           },

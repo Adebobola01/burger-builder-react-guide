@@ -3,11 +3,16 @@ import BurgerIngredients from "./BurgerIngredients/BurgerIngredients";
 import "./Burger.css"
 const burger = (props) => {
 
-    const modIngredients = Object.keys(props.ingredients).map(ingKey => {
+    let modIngredients = Object.keys(props.ingredients).map(ingKey => {
         return [...Array(props.ingredients[ingKey])].map((_, i) => {
             return <BurgerIngredients type={ingKey} key={ ingKey + i} />
         }) 
-    })
+    }).reduce((arr, el) => {
+       return arr.concat(el) 
+    }, [])
+    if (modIngredients.length === 0) {
+        modIngredients = <p>Please start adding ingredients</p>
+    }
 
     return (
         <div className="Burger">

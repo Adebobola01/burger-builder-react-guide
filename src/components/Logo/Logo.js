@@ -4,7 +4,7 @@ import "./Logo.css"
 
 const logo = (props) => (
     <div className="Logo" >
-        <img src={burgerLogo} />
+        <img src={burgerLogo} alt="logo" />
     </div>
 )
 

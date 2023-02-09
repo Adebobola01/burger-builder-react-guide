@@ -6,7 +6,9 @@ const toolbar = (props) => (
     <header className="Toolbar" >
         <div>menu</div>
         <Logo height="80%" />
-        <NavItems/>
+        <nav className="DesktopOnly" >
+            <NavItems />
+        </nav>
     </header>
 )
 

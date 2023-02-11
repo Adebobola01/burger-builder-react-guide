@@ -6,6 +6,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import { redirect, Navigate } from "react-router-dom";
 
 const INGREDIENT_PRICES = {
     bacon: 0.3,
@@ -69,28 +70,33 @@ class BurgerBuilder extends Component{
     }
 
     purchaseContinueHandler = () => {
-        this.setState({loading: true})
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: "Adebobola",
-                address: {
-                    street: "Oke ola",
-                    state: "Osun",
-                    country: "Nigeria"
-                },
-                email: "adebobolamuhydeen@gmail.com",
-            },
-            deliverymethod: "fastest"
-        }
-        axios.post("/orders.json", order).then(response => {
-            this.setState({loading: false, purchasing: false})
-            console.log(response)
-        }).catch(err => {
-            this.setState({loading: false, purchasing: false})
+        // this.setState({loading: true})
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: "Adebobola",
+        //         address: {
+        //             street: "Oke ola",
+        //             state: "Osun",
+        //             country: "Nigeria"
+        //         },
+        //         email: "adebobolamuhydeen@gmail.com",
+        //     },
+        //     deliverymethod: "fastest"
+        // }
+        // axios.post("/orders.json", order).then(response => {
+        //     this.setState({loading: false, purchasing: false})
+        //     console.log(response)
+        // }).catch(err => {
+        //     this.setState({loading: false, purchasing: false})
             
-        })
+        // })
+
+        // return <Link to="/checkout"/>
+        // this.props.history.push("/checkout")
+        console.log("here")
+        return redirect("/checkout")
     }
 
     render() {

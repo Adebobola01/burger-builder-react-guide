@@ -5,8 +5,11 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 
+import { createBrowserHistory } from "history";
+const history = createBrowserHistory({forceRefresh: true});
+
 const app = (
-    <BrowserRouter>
+    <BrowserRouter history={history} >
         <App/>
     </BrowserRouter>
 )

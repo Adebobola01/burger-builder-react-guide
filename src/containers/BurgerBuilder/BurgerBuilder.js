@@ -6,7 +6,9 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import { redirect, Navigate } from "react-router-dom";
+import { redirect, Navigate, createSearchParams, Location } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
 
 const INGREDIENT_PRICES = {
     bacon: 0.3,
@@ -94,9 +96,7 @@ class BurgerBuilder extends Component{
         // })
 
         // return <Link to="/checkout"/>
-        // this.props.history.push("/checkout")
-        console.log("here")
-        return redirect("/checkout")
+        true;
     }
 
     render() {

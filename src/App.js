@@ -9,9 +9,9 @@ class App extends Component {
     return (
       <div>
         <Layout>
-          <Routes>
-            <Route path='/' exact element={<BurgerBuilder/>} />
-            <Route path='/checkout' element={<Checkout/>}/>
+          <Routes >
+            <Route path='/checkout'exact element={<Checkout/>}/>
+            <Route path='/' element={<BurgerBuilder/>} />
           </Routes>
         </Layout>
       </div>

@@ -15,7 +15,6 @@ const burger = (props) => {
         modIngredients = <p>Please start adding ingredients</p>
     }
 
-    console.log(modIngredients)
 
     return (
         <div className="Burger">

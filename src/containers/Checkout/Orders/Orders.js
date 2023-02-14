@@ -6,8 +6,9 @@ class Orders extends Component{
     render() {
         return (
             <div>
-                <p>ingredients: Salad(1)</p>
-                <p>Price: USD 5.45</p>
+
+                <Order />
+                <Order/>
             </div>
         )
     }

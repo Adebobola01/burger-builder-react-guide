@@ -6,6 +6,18 @@
     border: 1px solid #eee;
     padding: 10px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ContactData input {
+    display: block;
+
+}
+
+.ContactData input:not(:last-child){
+    margin-bottom: 8px;
 }
 
 @media (min-width: 600px) {

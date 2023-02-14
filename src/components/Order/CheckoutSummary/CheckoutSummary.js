@@ -2,8 +2,15 @@ import React from "react";
 import Burger from "../../Burger/Burger";
 import Button from "../../UI/Button/Button";
 import "./CheckoutSummary.css"
+// import ContactData from "../../../containers/Checkout/ContactData/ContactData";
+// import { createBrowserHistory } from "history";
 
+
+// const history = createBrowserHistory()
 const checkoutSummary = (props) => {
+
+    // const contact = history.location.pathname === "/checkout/contact-data" ? <ContactData /> : null
+    // console.log(contact)
 
     return (
         <div className="CheckoutSummary">

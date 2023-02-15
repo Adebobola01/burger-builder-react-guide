@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import Button from "../../../components/UI/Button/Button";
 import "./ContactData.css"
 import Input from "../../../components/UI/Input/Input";
-import { elementType } from "prop-types";
 
 class ContactData extends Component{
     state = {
@@ -60,10 +59,26 @@ class ContactData extends Component{
         },
     }
 
+    inputChangeHandler = (e, inputIdentifier) => {
+        const updatedOrderForm = { ...this.state.orderForm };
+        const updatedFormEl = updatedOrderForm[inputIdentifier];
+        updatedFormEl.value = e.target.value;
+        updatedOrderForm[inputIdentifier] = updatedFormEl;
+        this.setState({ orderForm: updatedOrderForm });
+    }
 
     orderHandler = (e) => {
         e.preventDefault()
-        console.log(this.props.ingredients);
+        const formData = {}
+        for (let formInputId in this.state.orderForm) {
+            formData[formInputId] = this.state.orderForm[formInputId].value;
+        }
+        const order = {
+            ingredients: this.props.ingredients,
+            orderForm:formData
+        }
+
+        console.log(order)
     }
 
     render() {
@@ -79,11 +94,11 @@ class ContactData extends Component{
         return (
             <div className="ContactData" >
                 <h4>Enter your contact data</h4>
-                <form>
+                <form onSubmit={this.orderHandler} >
                     {formElementArr.map(formEl => (
-                        <Input elementType={formEl.config.elementType} elementConfig={formEl.config.elementConfig} value={formEl.config.value} key={formEl.id} />
+                        <Input changed={(e)=> this.inputChangeHandler(e, formEl.id)} elementType={formEl.config.elementType} elementConfig={formEl.config.elementConfig} value={formEl.config.value} key={formEl.id} />
                     ))}
-                    <Button btnType="Success" clicked={this.orderHandler} > Order</Button>
+                    <Button btnType="Success" > Order</Button>
                 </form>
             </div>
         )

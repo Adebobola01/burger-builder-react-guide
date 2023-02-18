@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
-import {Provider} from "react-redux"
+import { Provider } from "react-redux"
 import { legacy_createStore as createStore } from 'redux';
 import reducer from './store/reducer';
 import { createBrowserHistory } from "history";

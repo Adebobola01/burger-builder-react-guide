@@ -7,7 +7,7 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import * as actionType from "../../store/action"
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 // import { redirect, Navigate, createSearchParams, Location } from "react-router-dom";
 // import { createBrowserHistory } from "history";
 
@@ -77,9 +77,15 @@ class BurgerBuilder extends Component{
                     <OrderSummary ingredients={this.props.ings} purchaseContinue={this.purchaseContinueHandler} purchaseCancel={this.purchaseCancelHandler} price={this.props.price} />
                 </Modal>
                 <Burger ingredients={this.props.ings } />
-                <BuildControls ingredientAdded={this.addIngredientHandler} ingredientRemoved={this.removeIngredientHandler} disabled={disabledIngredients } curPrice={this.props.price} purchaseable={this.state.purchaseable} ordered={this.purchasehandler} />
+                <BuildControls ingredientAdded={this.props.onIngredientsAdded} ingredientRemoved={this.props.onIngredientsRemoved} disabled={disabledIngredients } curPrice={this.props.price} purchaseable={this.state.purchaseable} ordered={this.purchasehandler} />
             </Aux>
         )
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        onIngredientsAdded: (ingName) => dispatch({ type: actionType.ADD_INGREDIENT, ingredientName: ingName }),
+        onIngredientsRemoved: (ingName)=> dispatch({type: actionType.REMOVE_INGREDIENT, ingredientName: ingName})
     }
 }
 
@@ -89,13 +95,6 @@ const mapStateToProps = state => {
         price: state.totalPrice
     }
 }
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onIngredientsAdded: (ingName) => dispatch({ type: actionType.ADD_INGREDIENT, ingreidientName: ingName }),
-        onIngredientsAdded: (ingName)=> dispatch({type: actionType.REMOVE_INGREDIENT, ingreidientName: ingName})
-
-    }
-}
+ 
 
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));

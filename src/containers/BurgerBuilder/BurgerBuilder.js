@@ -23,8 +23,8 @@ class BurgerBuilder extends Component{
             return ingredients[key]
         }).reduce((sum, i) => {
             return sum + i;
-        }, 0)
-        this.setState({purchaseable: sum > 0})
+        }, 0);
+        return sum > 0;
     }
 
     purchasehandler = () => {
@@ -77,7 +77,7 @@ class BurgerBuilder extends Component{
                     <OrderSummary ingredients={this.props.ings} purchaseContinue={this.purchaseContinueHandler} purchaseCancel={this.purchaseCancelHandler} price={this.props.price} />
                 </Modal>
                 <Burger ingredients={this.props.ings } />
-                <BuildControls ingredientAdded={this.props.onIngredientsAdded} ingredientRemoved={this.props.onIngredientsRemoved} disabled={disabledIngredients } curPrice={this.props.price} purchaseable={this.state.purchaseable} ordered={this.purchasehandler} />
+                <BuildControls ingredientAdded={this.props.onIngredientsAdded} ingredientRemoved={this.props.onIngredientsRemoved} disabled={disabledIngredients } curPrice={this.props.price} purchaseable={this.updatePurchaseState(this.props.ings)} ordered={this.purchasehandler} />
             </Aux>
         )
     }

@@ -1,20 +1,18 @@
 import React from "react";
 import Button from "../../UI/Button/Button";
-import { useNavigate, createSearchParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
 
 const orderSummary = (props) => {
     const navigate = useNavigate()
-    const params = {...props.ingredients};
     const redirect = () => {
         return navigate({
             pathname: "/checkout",
-            search: `?${createSearchParams(params)}`
         });
     }
-    const ingredientSummary = Object.keys(props.ingredients).map(ingKey => (
+    const ingredientSummary = Object.keys(props.ings).map(ingKey => (
         <li key={ingKey} >
-            <span style={{textTransform: "capitalize"}} >{ingKey}:</span> { props.ingredients[ingKey]}
+            <span style={{textTransform: "capitalize"}} >{ingKey}:</span> { props.ings[ingKey]}
         </li>
     ))
     return (
@@ -31,4 +29,11 @@ const orderSummary = (props) => {
     )
 }
 
-export default orderSummary;
+
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice
+    }
+}
+export default connect(mapStateToProps)(orderSummary);

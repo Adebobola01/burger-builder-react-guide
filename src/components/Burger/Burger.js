@@ -3,7 +3,6 @@ import BurgerIngredients from "./BurgerIngredients/BurgerIngredients";
 import "./Burger.css"
 // import {withRouter} from "react-router-dom"
 const burger = (props) => {
-    console.log(props.ingredients)
     let modIngredients = Object.keys(props.ingredients).map(ingKey => {
         return [...Array(props.ingredients[ingKey])].map((_, i) => {
             return <BurgerIngredients type={ingKey} key={ ingKey + i} />

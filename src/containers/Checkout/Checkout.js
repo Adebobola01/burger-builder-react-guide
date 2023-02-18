@@ -4,22 +4,11 @@ import { Route, Routes } from "react-router-dom";
 import ContactData from "./ContactData/ContactData";
 import { createBrowserHistory } from "history";
 import withRouter from "../../hoc/withRouter";
-
+import { connect } from "react-redux";
 
 const history = createBrowserHistory();
 
 class Checkout extends Component {
-
-    state = {
-        contact: null,
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0,
-        }
-    };
-
 
     // componentDidUpdate() {
     //     console.log("updated")
@@ -30,14 +19,14 @@ class Checkout extends Component {
 
     // }
 
-    componentDidMount() {
-        const query = new URLSearchParams(window.location.search);
-        const ingredients = {}
-        for (let param of query.entries()) {
-            ingredients[param[0]] = +param[1];
-        }
-        this.setState({ingredients: ingredients})
-    }
+    // componentDidMount() {
+    //     const query = new URLSearchParams(window.location.search);
+    //     const ingredients = {}
+    //     for (let param of query.entries()) {
+    //         ingredients[param[0]] = +param[1];
+    //     }
+    //     this.setState({ingredients: ingredients})
+    // }
 
     checkoutCancelHandler = async() => {
         return this.props.navigate("/")
@@ -52,16 +41,22 @@ class Checkout extends Component {
 
         return (
             <div>
-                <CheckoutSummary ingredients={this.state.ingredients} cancel={this.checkoutCancelHandler} continue={this.checkoutContinueHandler} />
+                <CheckoutSummary ingredients={this.props.ings} cancel={this.checkoutCancelHandler} continue={this.checkoutContinueHandler} />
                 <Routes>
-                    <Route path={history.location + "/contact-data"} element={<ContactData ingredients={this.state.ingredients} />} />
+                    <Route path={history.location + "/contact-data"} element={<ContactData ingredients={this.props.ings} />} />
                 </Routes>
 
-                <ContactData ingredients={this.state.ingredients} /> 
+                <ContactData ingredients={this.props.ings} /> 
             </div>
         )
     }
 
 }
 
-export default withRouter(Checkout);
+
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients
+    }
+}
+export default connect(mapStateToProps)(withRouter(Checkout));

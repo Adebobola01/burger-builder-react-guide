@@ -6,7 +6,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import * as actionType from "../../store/actions/actionTypes"
+import * as actionType from "../../store/actions/index"
 import {connect} from "react-redux";
 // import { redirect, Navigate, createSearchParams, Location } from "react-router-dom";
 // import { createBrowserHistory } from "history";
@@ -84,8 +84,8 @@ class BurgerBuilder extends Component{
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientsAdded: (ingName) => dispatch({ type: actionType.ADD_INGREDIENT, ingredientName: ingName }),
-        onIngredientsRemoved: (ingName)=> dispatch({type: actionType.REMOVE_INGREDIENT, ingredientName: ingName})
+        onIngredientsAdded: (ingName) => dispatch(actionType.addIngredient(ingName)),
+        onIngredientsRemoved: (ingName)=> dispatch(actionType.removeIngredient(ingName))
     }
 }
 

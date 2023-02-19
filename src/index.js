@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from "react-redux"
 import { legacy_createStore as createStore } from 'redux';
-import reducer from './store/reducer';
+import reducer from './store/reducers/burgerBuilder';
 import { createBrowserHistory } from "history";
 const history = createBrowserHistory({forceRefresh: true});
 

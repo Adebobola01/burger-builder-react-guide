@@ -6,8 +6,7 @@ import Checkout from './containers/Checkout/Checkout';
 import Orders from './containers/Checkout/Orders/Orders';
 import Auth from './containers/Auth/Auth';
 // import ContactData from './containers/Checkout/ContactData/ContactData';
-class App extends Component {
-  render() {
+const app = () => {
     return (
       <div>
         <Layout>
@@ -21,6 +20,5 @@ class App extends Component {
       </div>
     );
   }
-}
 
-export default App;
+export default app;

@@ -1,23 +1,25 @@
-import React, { Component } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
-import Checkout from './containers/Checkout/Checkout';
-import Orders from './containers/Checkout/Orders/Orders';
-import Auth from './containers/Auth/Auth';
+const Checkout = lazy(()=> import('./containers/Checkout/Checkout'));
+const Orders = lazy(()=> import('./containers/Checkout/Orders/Orders'));
+const Auth = lazy(()=> './containers/Auth/Auth');
 // import ContactData from './containers/Checkout/ContactData/ContactData';
 const app = () => {
     return (
-      <div>
+      <>
         <Layout>
-          <Routes >
-            <Route path='/checkout/*' element={<Checkout />} />
-            <Route path='/orders' element={<Orders/>} />
-            <Route path='/' element={<BurgerBuilder />} />
-            <Route path="/auth" element={<Auth/>}/>
-          </Routes>
+          <Suspense>
+            <Routes >
+              <Route path='/checkout/*' element={ <Suspense> <Checkout /></Suspense>} />
+              <Route path='/orders' element={<Suspense> <Orders /></Suspense>} />
+              <Route path='/' index element={<Suspense> <BurgerBuilder /></Suspense>} />
+              <Route path="/auth" element={<Suspense> <Auth /></Suspense>}/>
+            </Routes>
+          </Suspense>
         </Layout>
-      </div>
+      </>
     );
   }
 

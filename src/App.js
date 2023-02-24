@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Aux from './hoc/Auxiliary';
 import Layout from './components/Layout/Layout';
 import Spinner from './components/UI/Spinner/Spinner';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
@@ -18,13 +19,13 @@ const app = () => {
     )
 
     return (
-      <>
+      <Aux>
         <Layout>
           <Suspense fallback={<Spinner/>}>
             {routes}
           </Suspense>
         </Layout>
-      </>
+      </Aux>
     );
   }
 

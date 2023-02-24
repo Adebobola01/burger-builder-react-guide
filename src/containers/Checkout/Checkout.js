@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 import { Route, Routes } from "react-router-dom";
 import ContactData from "./ContactData/ContactData";
@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 const history = createBrowserHistory();
 
-class Checkout extends Component {
+const checkout = (props)=>{
 
     // componentDidUpdate() {
     //     console.log("updated")
@@ -28,28 +28,25 @@ class Checkout extends Component {
     //     this.setState({ingredients: ingredients})
     // }
 
-    checkoutCancelHandler = async() => {
-        return this.props.navigate("/")
+    const checkoutCancelHandler = async() => {
+        return props.navigate("/")
     }
 
-    checkoutContinueHandler = async () => {
-        return this.props.navigate("/checkout/contact-data")
+    const checkoutContinueHandler = async () => {
+        return props.navigate("/checkout/contact-data")
     }
     
 
-    render(){
+    return (
+        <div>
+            <CheckoutSummary ingredients={props.ings} cancel={checkoutCancelHandler} continue={checkoutContinueHandler} />
+            <Routes>
+                <Route path={history.location + "/contact-data"} element={<ContactData ingredients={props.ings} />} />
+            </Routes>
 
-        return (
-            <div>
-                <CheckoutSummary ingredients={this.props.ings} cancel={this.checkoutCancelHandler} continue={this.checkoutContinueHandler} />
-                <Routes>
-                    <Route path={history.location + "/contact-data"} element={<ContactData ingredients={this.props.ings} />} />
-                </Routes>
-
-                <ContactData ingredients={this.props.ings} /> 
-            </div>
-        )
-    }
+            <ContactData ingredients={props.ings} /> 
+        </div>
+    )
 
 }
 
@@ -59,4 +56,4 @@ const mapStateToProps = state => {
         ings: state.ingredients
     }
 }
-export default connect(mapStateToProps)(withRouter(Checkout));
+export default connect(mapStateToProps)(withRouter(checkout));

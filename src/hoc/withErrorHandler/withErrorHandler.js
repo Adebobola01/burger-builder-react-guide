@@ -5,9 +5,9 @@ const withErrorHandler = (WrappedComponent, axios) => {
     return props => {
         const [error, setError] = useState;
 
-        const reqInterceptors = axios.interceptors.request.use(res => res, error => {
+        const reqInterceptors = axios.interceptors.request.use(req => req, error => {
             setError(null);
-            return req;
+            // return req;
         })
         const resInterceptors = axios.interceptors.response.use(res => res, error => {
             this.setState({error: error.message})

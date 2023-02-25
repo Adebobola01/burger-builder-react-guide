@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner"
 import "./Auth.css"
 // import resolve from "resolve";
 // import { reject } from "lodash";
-class Auth extends Component {
+const auth = props => {
 
-    state = {
-        controls: {
+    const [authForm, setAuthForm] = useState(
+        {
             email: {
                 elementType: "input",
                 elementConfig: {
@@ -26,44 +26,43 @@ class Auth extends Component {
                 value: ""
             }
         },
-        auth: {
+    )
+    const [auth, setAuth] = useState(
+        {
             token: "",
             exp: "34"
         },
-        loading: false
-    }
-    inputChangeHandler = (e, inputIdentifier) => {
-        const updatedAuthForm = { ...this.state.controls };
+    )
+    const [loading, setLoading] = useState(false);
+
+    const inputChangeHandler = (e, inputIdentifier) => {
+        const updatedAuthForm = { ...authForm };
         const updatedFormEl = updatedAuthForm[inputIdentifier];
         updatedFormEl.value = e.target.value;
         updatedAuthForm[inputIdentifier] = updatedFormEl;
-        this.setState({ controls: updatedAuthForm });
+        setAuthForm(updatedAuthForm)
     }
 
-    submitHandler = async(e) => {
+    const submitHandler = async(e) => {
         e.preventDefault();
-        this.setState({loading: true})
+        setLoading(true);
         const data = await new Promise((resolve, reject) => {       
             setTimeout(() => {
                 const data = {
                     idToken: "lkafdlksjflkajflkjaflk;flkas",
                 }
-                this.setState({loading: false})
+                setLoading(false);
                 resolve(data)
             }, 3000)
         })
-        this.setState((prevState) => {
-            return {
-                auth: {
-                    ...prevState.auth,
-                    token: data.idToken
-                }
+        setAuth((prevState) => (
+            {
+                ...prevState.auth,
+                token: data.idToken
             }
-        })
-        console.log(this.state)
+        ))
     }
 
-    render() {
 
         const formEl = Object.keys(this.state.controls).map(key => {
             return {
@@ -79,8 +78,8 @@ class Auth extends Component {
         )
             
             
-            return (
-                <div>
+        return (
+            <div>
                 <form className="AuthData" onSubmit={this.submitHandler} >
                     {this.state.loading ? <Spinner /> :
                         form
@@ -90,7 +89,6 @@ class Auth extends Component {
                 </form>
             </div>
         )
-    }
 }
 
-export default Auth;
+export default auth;

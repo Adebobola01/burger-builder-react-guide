@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Aux from "../../hoc/Auxiliary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
@@ -11,14 +11,12 @@ import {connect} from "react-redux";
 // import { redirect, Navigate, createSearchParams, Location } from "react-router-dom";
 // import { createBrowserHistory } from "history";
 
-class BurgerBuilder extends Component{
-    state = {
-        purchaseable: false,
-        purchasing: false,
-        loading: false
-    }
+const burgerBuilder = props => {
+    const [purchaseable, setPurchaseable] = useState(false);
+    const [purchasing, setPurchasing] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    updatePurchaseState = (ingredients) => {
+    const updatePurchaseState = (ingredients) => {
         const sum = Object.keys(ingredients).map(key => {
             return ingredients[key]
         }).reduce((sum, i) => {
@@ -27,19 +25,19 @@ class BurgerBuilder extends Component{
         return sum > 0;
     }
 
-    purchasehandler = () => {
-        this.setState({purchasing: true})
+    const purchasehandler = () => {
+        setPurchasing(true);
     }
 
-    purchaseCancelHandler = () => {
-        this.setState({purchasing: false})
+    const purchaseCancelHandler = () => {
+        setPurchasing(false);
     }
 
-    purchaseContinueHandler = () => {
+    const purchaseContinueHandler = () => {
         // this.setState({loading: true})
         // const order = {
         //     ingredients: this.props.ings,
-        //     price: this.state.totalPrice,
+        //     price: totalPrice,
         //     customer: {
         //         name: "Adebobola",
         //         address: {
@@ -63,24 +61,22 @@ class BurgerBuilder extends Component{
         return true;
     }
 
-    render() {
-        const disabledIngredients = {
-            ...this.props.ings
-        }
-        for (const key in disabledIngredients) {
-            disabledIngredients[key] = disabledIngredients[key] <= 0
-        }
-
-        return (
-            <Aux>
-                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler} loading={this.state.loading} >
-                    <OrderSummary ingredients={this.props.ings} purchaseContinue={this.purchaseContinueHandler} purchaseCancel={this.purchaseCancelHandler} price={this.props.price} />
-                </Modal>
-                <Burger ingredients={this.props.ings } />
-                <BuildControls ingredientAdded={this.props.onIngredientsAdded} ingredientRemoved={this.props.onIngredientsRemoved} disabled={disabledIngredients } curPrice={this.props.price} purchaseable={this.updatePurchaseState(this.props.ings)} ordered={this.purchasehandler} />
-            </Aux>
-        )
+    const disabledIngredients = {
+        ...props.ings
     }
+    for (const key in disabledIngredients) {
+        disabledIngredients[key] = disabledIngredients[key] <= 0
+    }
+
+    return (
+        <Aux>
+            <Modal show={purchasing} modalClosed={purchaseCancelHandler} loading={loading} >
+                <OrderSummary ingredients={props.ings} purchaseContinue={purchaseContinueHandler} purchaseCancel={purchaseCancelHandler} price={props.price} />
+            </Modal>
+            <Burger ingredients={props.ings } />
+            <BuildControls ingredientAdded={props.onIngredientsAdded} ingredientRemoved={props.onIngredientsRemoved} disabled={disabledIngredients } curPrice={props.price} purchaseable={updatePurchaseState(props.ings)} ordered={purchasehandler} />
+        </Aux>
+    )
 }
 const mapDispatchToProps = dispatch => {
     return {
@@ -97,4 +93,4 @@ const mapStateToProps = state => {
 }
  
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(burgerBuilder, axios));

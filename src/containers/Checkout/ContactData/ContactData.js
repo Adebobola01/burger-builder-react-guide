@@ -1,92 +1,88 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import Button from "../../../components/UI/Button/Button";
 import "./ContactData.css"
 import Input from "../../../components/UI/Input/Input";
 
-class ContactData extends Component{
-    state = {
-        orderForm: {
-            name: {
-                elementType: "input",
-                elementConfig: {
-                    type: "text",
-                    placeholder: "your name"
-                },
-                value: ""
+const contactData = (props)=>{
+    const [orderForm, setOrderForm] = useState({
+        name: {
+            elementType: "input",
+            elementConfig: {
+                type: "text",
+                placeholder: "your name"
             },
-            street: {
-                elementType: "input",
-                elementConfig: {
-                    type: "text",
-                    placeholder: "Street"
-                },
-                value: ""
-            },
-            email: {
-                elementType: "input",
-                elementConfig: {
-                    type: "email",
-                    placeholder: "Email"
-                },
-                value: ""
-            },
-            Country: {
-                elementType: "input",
-                elementConfig: {
-                    type: "text",
-                    placeholder: "Country"
-                },
-                value: ""
-            },
-            Zipcode: {
-                elementType: "input",
-                elementConfig: {
-                    type: "text",
-                    placeholder: "ZIP CODE"
-                },
-                value: ""
-            },
-            deliveryMethod: {
-                elementType: "select",
-                elementConfig: {
-                    options: [
-                        { vaue: "fastest", DisplayValue: "Fastest" },
-                        {value: "cheapest", DisplayValue: "Cheapest"}
-                    ]
-                },
-                value: ""
-            },
+            value: ""
         },
-    }
+        street: {
+            elementType: "input",
+            elementConfig: {
+                type: "text",
+                placeholder: "Street"
+            },
+            value: ""
+        },
+        email: {
+            elementType: "input",
+            elementConfig: {
+                type: "email",
+                placeholder: "Email"
+            },
+            value: ""
+        },
+        Country: {
+            elementType: "input",
+            elementConfig: {
+                type: "text",
+                placeholder: "Country"
+            },
+            value: ""
+        },
+        Zipcode: {
+            elementType: "input",
+            elementConfig: {
+                type: "text",
+                placeholder: "ZIP CODE"
+            },
+            value: ""
+        },
+        deliveryMethod: {
+            elementType: "select",
+            elementConfig: {
+                options: [
+                    { vaue: "fastest", DisplayValue: "Fastest" },
+                    {value: "cheapest", DisplayValue: "Cheapest"}
+                ]
+            },
+            value: ""
+        },
+    })
 
-    inputChangeHandler = (e, inputIdentifier) => {
-        const updatedOrderForm = { ...this.state.orderForm };
+    const inputChangeHandler = (e, inputIdentifier) => {
+        const updatedOrderForm = { ...orderForm };
         const updatedFormEl = updatedOrderForm[inputIdentifier];
         updatedFormEl.value = e.target.value;
         updatedOrderForm[inputIdentifier] = updatedFormEl;
-        this.setState({ orderForm: updatedOrderForm });
+        setOrderForm({ orderForm: updatedOrderForm });
     }
 
-    orderHandler = (e) => {
+    const orderHandler = (e) => {
         e.preventDefault()
         const formData = {}
-        for (let formInputId in this.state.orderForm) {
-            formData[formInputId] = this.state.orderForm[formInputId].value;
+        for (let formInputId in orderForm) {
+            formData[formInputId] = orderForm[formInputId].value;
         }
         const order = {
-            ingredients: this.props.ingredients,
+            ingredients: props.ingredients,
             orderForm:formData
         }
 
         console.log(order)
     }
-
-    render() {
         const formElementArr = [];
-        for (let key in this.state.orderForm) {
+        for (let key in orderForm) {
             formElementArr.push({
                 id: key,
-                config: this.state.orderForm[key]
+                config: orderForm[key]
             })
         }
 
@@ -94,15 +90,14 @@ class ContactData extends Component{
         return (
             <div className="ContactData" >
                 <h4>Enter your contact data</h4>
-                <form onSubmit={this.orderHandler} >
+                <form onSubmit={orderHandler} >
                     {formElementArr.map(formEl => (
-                        <Input changed={(e)=> this.inputChangeHandler(e, formEl.id)} elementType={formEl.config.elementType} elementConfig={formEl.config.elementConfig} value={formEl.config.value} key={formEl.id} />
+                        <Input changed={(e)=> inputChangeHandler(e, formEl.id)} elementType={formEl.config.elementType} elementConfig={formEl.config.elementConfig} value={formEl.config.value} key={formEl.id} />
                     ))}
                     <Button btnType="Success" > Order</Button>
                 </form>
             </div>
         )
-    }
 }
 
-export default ContactData;
+export default contactData;

@@ -3,7 +3,7 @@ import Aux from "../Auxiliary";
 import Modal from "../../components/UI/Modal/Modal";
 const withErrorHandler = (WrappedComponent, axios) => {
     return props => {
-        const [error, setError] = useState;
+        const [error, setError] = useState(null);
 
         const reqInterceptors = axios.interceptors.request.use(req => req, error => {
             setError(null);

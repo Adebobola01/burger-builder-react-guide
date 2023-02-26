@@ -5,7 +5,7 @@ import Spinner from './components/UI/Spinner/Spinner';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 const Checkout = lazy(()=> import('./containers/Checkout/Checkout'));
 const Orders = lazy(()=> import('./containers/Checkout/Orders/Orders'));
-const Auth = lazy(()=> './containers/Auth/Auth');
+const Auth = lazy(()=> import('./containers/Auth/Auth'));
 // import ContactData from './containers/Checkout/ContactData/ContactData';
 const app = () => {
     let routes = (

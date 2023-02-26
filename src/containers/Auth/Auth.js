@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner"
@@ -64,24 +64,24 @@ const auth = props => {
     }
 
 
-        const formEl = Object.keys(this.state.controls).map(key => {
+        const formEl = Object.keys(authForm).map(key => {
             return {
-                ...this.state.controls[key],
+                ...authForm[key],
                 key: key
             }
         })
 
         let form = (
             formEl.map((el, i) => (
-                <Input key={i} elementType={el.elementType} elementConfig={el.elementConfig} changed={(e) => this.inputChangeHandler(e, el.key)} />
+                <Input key={i} elementType={el.elementType} elementConfig={el.elementConfig} changed={(e) => inputChangeHandler(e, el.key)} />
             ))
         )
             
             
         return (
             <div>
-                <form className="AuthData" onSubmit={this.submitHandler} >
-                    {this.state.loading ? <Spinner /> :
+                <form className="AuthData" onSubmit={submitHandler} >
+                    {loading ? <Spinner /> :
                         form
                     }
                     <Button btnType="Success">Submit</Button>
